@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.website.weily.dao.PermissionDao">
+    <resultMap id="BaseResultMap" type="com.website.weily.entity.Permission">
+        <id column="id" property="id" jdbcType="BIGINT" javaType="java.lang.Long"/>
+        <result column="name" property="name" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <result column="description" property="description" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        <!--创建时间戳和修改时间戳在正式建表后添加 -->
+    </resultMap>
+
+    <select id="getById" parameterType="long" resultMap="BaseResultMap">
+        select * from permission
+        where id = #{id}
+    </select>
+</mapper>

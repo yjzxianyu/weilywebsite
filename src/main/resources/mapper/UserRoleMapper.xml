@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.website.weily.dao.UserRoleDao">
+
+    <resultMap id="BaseResultMap" type="com.website.weily.entity.UserRole">
+        <id column="id" property="id" jdbcType="BIGINT" javaType="java.lang.Long" />
+        <!--创建时间戳和修改时间戳在正式建表后添加 -->
+        <result column="user_id" property="userId" jdbcType="BIGINT" javaType="java.lang.Long" />
+        <result column="role_id" property="roleId" jdbcType="BIGINT" javaType="java.lang.Long" />
+        <result column="description" property="description" jdbcType="VARCHAR" javaType="java.lang.String" />
+        <association property="role" column="role_id" javaType="com.website.weily.entity.Role"
+                     select="com.website.weily.dao.RoleDao.getById"></association>
+    </resultMap>
+
+    <select id="getByUserId" parameterType="long" resultMap="BaseResultMap">
+        select * from user_role
+        where user_id = #{userId}
+    </select>
+</mapper>

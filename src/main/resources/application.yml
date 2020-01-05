@@ -1,0 +1,59 @@
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/weily?useUnicode=true&charactorEncoding=utf8&useSSL=false&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+
+#图形验证码
+kaptcha:
+  border: "yes"
+  border.color: 105,179,90
+  textproducer:
+    font:
+      color: blue
+      size: 30
+      names: 宋体，楷体，微软雅黑
+    char:
+      length: 4
+  image:
+    width: 120
+    height: 67
+  session:
+    key: code
+    date: 10
+
+server:
+  port: 8080
+  servlet:
+    context-path: /weily
+
+#mybatis
+mybatis:
+  type-aliases-package: com.website.weily.dao
+  mapper-locations: classpath:mapper/*.xml
+  config-location: classpath:mybatis-config.xml
+
+
+#shiro
+shiro:
+  hashedCredentialsMatcher:
+    hashAlgorithmName: md5
+    hashIterations: 2
+  shiroFilter:
+    loginUrl: /user/authc
+    unauthorizedUrl: /user/authc
+    filterChainDefinitionMap:
+      anon:
+        image: /img/**
+        login: /user/login
+        static: /static/
+        html: /doc.html
+        resources: /swagger-resources
+        docs: /v2/api-docs
+        ext: /v2/api-docs-ext
+        webjars: /webjars/**
+      authc:
+        other: /**
